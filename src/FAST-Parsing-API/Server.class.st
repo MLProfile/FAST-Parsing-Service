@@ -1,3 +1,19 @@
+"
+# Routes 
+
+- url:1701/parse
+
+# Usage 
+
+```
+Server start.
+```
+
+```
+curl -X POST http://localhost:1701/parse -d '{
+  ""source"": ""import pandas as pd\n\ndf = pd.read_csv('data.csv')\nprint(df.head())""}' -H ""Content-Type: application/json""
+```
+"
 Class {
 	#name : 'Server',
 	#superclass : 'Object',
@@ -64,7 +80,7 @@ Server >> registerRoutes [
 			response
 				entity:
 					(ZnEntity json:
-							 '{"profile": "' , res sous_graphs, '"}'); "This should return json sous grpahs"
+							 res importsSousGraphs); "This should return json sous grpahs"
 				yourself ].
 ]
 
