@@ -19,6 +19,12 @@ FastParsingService class >> parseInvocationFromSource: nbSourceCode [
 		  yourself
 ]
 
+{ #category : 'as yet unclassified' }
+FastParsingService >> endLineNumber: aFastEntity [ 
+
+	^ aFastEntity sourceText lineNumberCorrespondingToIndex: (aFastEntity endPos)
+]
+
 { #category : 'accessing' }
 FastParsingService >> importsSousGraphs [
 
@@ -69,7 +75,7 @@ FastParsingService >> sousGraphsFromimports: imports AndInvocation: calls [
             at: 'id'           put: UUID new asString; 
             at: 'library'      put: '';
             at: 'function'     put: '';
-				at: 'line' put: (Dictionary new at: 'start' put: 'todo'; at: 'end' put: 'todo'; yourself);
+				at: 'line' put: (Dictionary new at: 'start' put: (self startLineNumber: import); at: 'end' put: (self endLineNumber: import); yourself);
 				at: 'cursor' put: (Dictionary new at: 'start' put: import startPos; at: 'end' put: import endPos; yourself);
             at: 'source'       put: import sourceCode;
             at: 'step_name'    put: 'Library Loading';
@@ -80,13 +86,19 @@ FastParsingService >> sousGraphsFromimports: imports AndInvocation: calls [
             at: 'id'           put: UUID new asString; 
             at: 'library'      put: '';
             at: 'function'     put: '';
-				at: 'line' put: (Dictionary new at: 'start' put: 'todo'; at: 'end' put: 'todo'; yourself);
+				at: 'line' put: (Dictionary new at: 'start' put: (self startLineNumber: call); at: 'end' put: (self endLineNumber: call); yourself);
 				at: 'cursor' put: (Dictionary new at: 'start' put: call startPos; at: 'end' put: call endPos; yourself);
             at: 'source'       put: call sourceCode;
             at: 'step_name'    put: '';
             yourself ].
 
-	jsonImport:= jsonImport addAllLast: jsonCalls . "??? pourquoi je perd ce qu'il yh a dans jsonImports ?"
+	jsonImport addAll: jsonCalls . "??? pourquoi je perd ce qu'il yh a dans jsonImports ?"
 
    importsSousGraphs:= NeoJSONWriter toString: jsonImport "Bonger ça dans la classe serveur"
+]
+
+{ #category : 'as yet unclassified' }
+FastParsingService >> startLineNumber: aFastEntity [ 
+
+	^ aFastEntity sourceText lineNumberCorrespondingToIndex: (aFastEntity startPos)
 ]

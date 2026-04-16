@@ -29,6 +29,9 @@ Class {
 Server class >> start [
 
 	| serv |
+	"We start by installing the TS lib dependency"
+	TSLibrariesPython new ensurePythonLibraryExists.
+	
 	serv := self new server: (ZnServer startDefaultOn: 1701).
 	serv registerRoutes.
 	serv server delegate: serv dispatcher.
