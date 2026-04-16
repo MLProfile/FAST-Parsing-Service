@@ -63,23 +63,30 @@ FastParsingService >> source: aSourceCode [
 { #category : 'as yet unclassified' }
 FastParsingService >> sousGraphsFromimports: imports AndInvocation: calls [ 
 	
-	| jsonImport |
-	jsonImport := imports collect: [ :import | 
+	| jsonImport jsonCalls |
+	jsonImport := imports asCollection collect: [ :import | 
         Dictionary new
-            at: 'id'           put: UUID new asString; "Supposons que vous avez cette méthode"
+            at: 'id'           put: UUID new asString; 
             at: 'library'      put: '';
             at: 'function'     put: '';
-            at: 'value'        put: (Dictionary new 
-                                    at: 'start_pos'    put: import startPos; 
-											  at: 'end_pos' put: import endPos;
-                                    yourself);
+				at: 'line' put: (Dictionary new at: 'start' put: 'todo'; at: 'end' put: 'todo'; yourself);
+				at: 'cursor' put: (Dictionary new at: 'start' put: import startPos; at: 'end' put: import endPos; yourself);
             at: 'source'       put: import sourceCode;
-            "at: 'start_lineno' put: import startLine;"
-            "at: 'end_lineno'   put: import endLine;"
             at: 'step_name'    put: 'Library Loading';
             yourself ].
 
-	jsonImport:= jsonImport first. "collect renvoi un moose groupe doit y avoir un collect qui ne renvoi pas un moose groupe"
+	jsonCalls := calls asCollection collect: [ :call | 
+        Dictionary new
+            at: 'id'           put: UUID new asString; 
+            at: 'library'      put: '';
+            at: 'function'     put: '';
+				at: 'line' put: (Dictionary new at: 'start' put: 'todo'; at: 'end' put: 'todo'; yourself);
+				at: 'cursor' put: (Dictionary new at: 'start' put: call startPos; at: 'end' put: call endPos; yourself);
+            at: 'source'       put: call sourceCode;
+            at: 'step_name'    put: '';
+            yourself ].
 
-    importsSousGraphs:= NeoJSONWriter toString: jsonImport
+	jsonImport:= jsonImport addAllLast: jsonCalls . "??? pourquoi je perd ce qu'il yh a dans jsonImports ?"
+
+   importsSousGraphs:= NeoJSONWriter toString: jsonImport "Bonger ça dans la classe serveur"
 ]
