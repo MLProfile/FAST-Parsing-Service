@@ -1,4 +1,4 @@
-FROM debian:stable-slim
+FROM debian:stable
 
 RUN apt-get update && apt-get install -y \
     curl unzip git build-essential \
@@ -7,17 +7,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /opt/pharo
 
-RUN curl https://get.pharo.org/vm140 | bash 
-
-# TSLibraries will look in this place
-#RUN mkdir -p /root/Documents/tree-sitter-libraries/libtree-sitter-python
-
-#RUN git clone https://github.com/tree-sitter/tree-sitter-python.git /tmp/ts-python \
-#    && cd /tmp/ts-python \
-#    && make \
-#    && cp libtree-sitter-python.so /root/Documents/tree-sitter-libraries/libtree-sitter-python/ \
-#    && cp libtree-sitter-python.so /opt/pharo/pharo-vm/lib/ \
-#    && rm -rf /tmp/ts-python
+RUN curl https://get.pharo.org/140+vm | bash 
 
 RUN mkdir -p /root/Documents/tree-sitter-libraries
 
@@ -37,12 +27,12 @@ RUN git clone https://github.com/tree-sitter/tree-sitter-python.git /root/Docume
     # not clear why TSPython loockup fallback in the previous location does not work... so we put it in the vms libs
 
 
-COPY image/parse-api-fast.image .
-COPY image/parse-api-fast.changes .
+RUN ./pharo-vm/pharo  --headless Pharo.image metacello install --save "github://MLProfile/FAST-Parsing-Service:main" "FastParsingAPI"
 
 EXPOSE 1701
 
-ENTRYPOINT ["./pharo"]
+ENTRYPOINT ["./pharo-vm/pharo"]
 
-CMD ["parse-api-fast.image", "eval", "--no-quit", "Server start"]
+
+CMD ["Pharo.image", "eval", "--no-quit", "Server start"]
 
