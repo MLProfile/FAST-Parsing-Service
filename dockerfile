@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /opt/pharo
 
-RUN curl https://get.pharo.org/130+vm | bash 
+RUN curl https://get.pharo.org/140+vm | bash 
 
 RUN mkdir -p /root/Documents/tree-sitter-libraries
 

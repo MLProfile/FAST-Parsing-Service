@@ -18,6 +18,14 @@ Then launch it: `docker run -d -p 1701:1701 vesp-server:latest`
 
 Log: `docker logs -f [container id]`
 
+## Pulling from GitHub
+
+```
+docker pull ghcr.io/mlprofile/fast-parsing-service:main
+docker run -d --platform linux/amd64 -p 1701/1701 ghcr.io/mlprofile/fast-parsing-service:main
+```
+
+## Request type 
 Request:
 ```
 curl -X POST http://localhost:1701/parse -d '{
