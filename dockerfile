@@ -33,6 +33,4 @@ EXPOSE 1701
 
 ENTRYPOINT ["./pharo-vm/pharo"]
 
-
-CMD ["Pharo.image", "eval", "--no-quit", "Server start"]
-
+CMD ["--headless", "Pharo.image", "eval", "--no-quit", "Server start"]
