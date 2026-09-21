@@ -22,7 +22,7 @@ Log: `docker logs -f [container id]`
 
 ```
 docker pull ghcr.io/mlprofile/fast-parsing-service:main
-docker run -d --platform linux/amd64 -p 1701/1701 ghcr.io/mlprofile/fast-parsing-service:main
+docker run -d --platform linux/amd64 -p 1701:1701 ghcr.io/mlprofile/fast-parsing-service:main
 ```
 
 ## Request type 
