@@ -29,7 +29,7 @@ docker run -d --platform linux/amd64 -p 1701:1701 ghcr.io/mlprofile/fast-parsing
 Request:
 ```
 curl -X POST http://localhost:1701/parse -d '{
-  "source": "import pandas as pd\n\ndf = pd.read_csv('data.csv')\nprint(df.head())"}' -H "Content-Type: application/json"`
+  "source": "import pandas as pd\n\ndf = pd.read_csv('data.csv')\nprint(df.head())"}' -H "Content-Type: application/json"
 ```
 
 Response:
