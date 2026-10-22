@@ -4,11 +4,21 @@ Class {
 	#instVars : [
 		'source',
 		'model',
-		'importsSousGraphs'
+		'importsSousGraphs',
+		'jsonModel'
 	],
 	#category : 'FAST-Parsing-API',
 	#package : 'FAST-Parsing-API'
 }
+
+{ #category : 'parsing' }
+FastParsingService class >> parseFromSource: nbSourceCode [
+
+^ self new
+		  source: nbSourceCode;
+		  parse;
+		  yourself
+]
 
 { #category : 'parsing' }
 FastParsingService class >> parseInvocationFromSource: nbSourceCode [
@@ -35,6 +45,30 @@ FastParsingService >> importsSousGraphs [
 FastParsingService >> importsSousGraphs: anObject [
 
 	importsSousGraphs := anObject
+]
+
+{ #category : 'accessing' }
+FastParsingService >> jsonModel [
+
+	^jsonModel
+]
+
+{ #category : 'accessing' }
+FastParsingService >> jsonModel: anObject [
+
+	jsonModel := anObject
+]
+
+{ #category : 'parsing' }
+FastParsingService >> parse [
+
+ model:=	FASTPythonImporter parse: source.
+ jsonModel := model exportAsJSONWithDerived
+ 
+ 
+
+
+
 ]
 
 { #category : 'parsing' }
