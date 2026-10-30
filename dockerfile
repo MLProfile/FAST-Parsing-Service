@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /opt/pharo
 
-RUN curl https://get.pharo.org/130+vm | bash 
+RUN curl https://get.pharo.org/140+vm | bash 
 
 RUN mkdir -p /root/Documents/tree-sitter-libraries
 
@@ -27,7 +27,7 @@ RUN git clone https://github.com/tree-sitter/tree-sitter-python.git /root/Docume
     # not clear why TSPython loockup fallback in the previous location does not work... so we put it in the vms libs
 
 
-RUN ./pharo-vm/pharo  --headless Pharo.image metacello install --save "github://MLProfile/FAST-Parsing-Service:main" "FastParsingAPI"
+RUN ./pharo-vm/pharo  --headless Pharo.image metacello install "github://MLProfile/FAST-Parsing-Service:main" BaselineOfFastParsingAPI
 
 EXPOSE 1701
 
