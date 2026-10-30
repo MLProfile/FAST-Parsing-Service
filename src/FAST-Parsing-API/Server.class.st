@@ -30,7 +30,7 @@ Server class >> start [
 
 	| serv |
 	"We start by installing the TS lib dependency"
-	TSLibrariesPython new ensurePythonLibraryExists.
+	"TSLibrariesPython new ensurePythonLibraryExists."
 	
 	serv := self new server: (ZnServer startDefaultOn: 1701).
 	serv registerRoutes.
@@ -52,6 +52,24 @@ Server >> dispatcher [
 Server >> dispatcher: anObject [
 
 	dispatcher := anObject
+]
+
+{ #category : 'as yet unclassified' }
+Server >> handleParseFullRequest: aRequest [
+	| postData dict nbSourceCode |
+
+	postData := aRequest entity contents.
+	dict := (NeoJSONReader on: postData readStream) next.
+
+	"Should handle ifAbsent"
+	nbSourceCode := dict
+		        at: 'source'
+		        ifAbsent: [
+		        ^ Error new signal: 'notebook source is missing in the request' ].
+
+
+	^ FastParsingService
+		  parseFromSource: nbSourceCode
 ]
 
 { #category : 'public' }
@@ -79,11 +97,17 @@ Server >> registerRoutes [
 	dispatcher map: '/parse' to: [ :request :response |
 			| res |
 			res := self handleParseRequest: request.
-
 			response
 				entity:
 					(ZnEntity json:
 							 res importsSousGraphs); "This should return json sous grpahs"
+				yourself ].
+		dispatcher map: '/parse/full' to: [ :request :response |
+			| res |
+			res := self handleParseFullRequest: request.
+			response
+				entity: (ZnEntity with:
+							 res jsonModel type: ZnMimeType applicationJson); 
 				yourself ].
 ]
 
