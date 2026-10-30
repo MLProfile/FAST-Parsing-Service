@@ -119,16 +119,16 @@ FastParsingService >> sousGraphsFromimports: imports AndInvocation: calls [
         Dictionary new
             at: 'id'           put: UUID new asString; 
             at: 'library'      put: '';
-            at: 'function'     put: '';
+            at: 'function'     put: call callee name ;
 				at: 'line' put: (Dictionary new at: 'start' put: (self startLineNumber: call); at: 'end' put: (self endLineNumber: call); yourself);
 				at: 'cursor' put: (Dictionary new at: 'start' put: call startPos; at: 'end' put: call endPos; yourself);
             at: 'source'       put: call sourceCode;
             at: 'step_name'    put: '';
             yourself ].
 
-	jsonImport addAll: jsonCalls . "??? pourquoi je perd ce qu'il yh a dans jsonImports ?"
+	jsonImport addAll: jsonCalls . 
 
-   importsSousGraphs:= NeoJSONWriter toString: jsonImport "Bonger ça dans la classe serveur"
+   importsSousGraphs:= NeoJSONWriter toString: jsonImport "Bouger ça dans la classe serveur"
 ]
 
 { #category : 'as yet unclassified' }
