@@ -28,7 +28,7 @@ RUN git clone https://github.com/tree-sitter/tree-sitter-python.git /root/Docume
 # C. TypeScript grammar  
 RUN git clone https://github.com/tree-sitter/tree-sitter-typescript.git /root/Documents/tree-sitter-libraries/tree-sitter-typescript \
     && cd /root/Documents/tree-sitter-libraries/tree-sitter-typescript \
-    && make \
+    && make 
 #   && cp libtree-sitter-typescript.so /opt/pharo/pharo-vm/lib/ # There is no so after the build
 
 
