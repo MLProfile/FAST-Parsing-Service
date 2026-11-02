@@ -29,7 +29,7 @@ RUN git clone https://github.com/tree-sitter/tree-sitter-python.git /root/Docume
 RUN git clone https://github.com/tree-sitter/tree-sitter-typescript.git /root/Documents/tree-sitter-libraries/tree-sitter-typescript \
     && cd /root/Documents/tree-sitter-libraries/tree-sitter-typescript \
     && make \
-    && cp libtree-sitter-typescript.so /opt/pharo/pharo-vm/lib/ 
+#   && cp libtree-sitter-typescript.so /opt/pharo/pharo-vm/lib/ # There is no so after the build
 
 
 RUN ./pharo-vm/pharo  --headless Pharo.image metacello install "github://MLProfile/FAST-Parsing-Service:main" BaselineOfFastParsingAPI
