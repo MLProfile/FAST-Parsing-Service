@@ -1,0 +1,358 @@
+info:
+  name: Parse full
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://localhost:1701/parse/full
+  body:
+    type: json
+    data: "{\"source\": \"import pandas as pd\\n\\ndf = pd.read_csv('data.csv')\\nprint(df.head())\"}"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+examples:
+  - name: example
+    request:
+      url: http://localhost:1701/parse/full
+      method: POST
+      body:
+        type: json
+        data: "{\"source\": \"import pandas as pd\\n\\ndf = pd.read_csv('data.csv')\\nprint(df.head())\"}"
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: server
+          value: Zinc HTTP Components 1.0 (Pharo/13.1)
+        - name: date
+          value: Mon, 16 Nov 2026 17:44:24 GMT
+        - name: content-type
+          value: application/json
+        - name: content-length
+          value: "5505"
+      body:
+        type: json
+        data: |-
+          [
+            {
+              "FM3": "FAST-Python-Model.Identifier",
+              "id": 1,
+              "name": "df",
+              "endLine": 4,
+              "endPos": 58,
+              "fanIn": 0,
+              "fanOut": 0,
+              "hasComments": false,
+              "isDead": true,
+              "isRoot": false,
+              "isTagged": false,
+              "numberOfContainedEntities": 0,
+              "numberOfDeadChildren": 0,
+              "numberOfExternalClients": 0,
+              "numberOfExternalProviders": 0,
+              "numberOfInternalClients": 0,
+              "numberOfInternalProviders": 0,
+              "numberOfTags": 0,
+              "sourceCode": "df",
+              "startLine": 4,
+              "startPos": 57
+            },
+            {
+              "FM3": "FAST-Python-Model.AttributeAccess",
+              "id": 2,
+              "name": "head",
+              "endLine": 4,
+              "endPos": 63,
+              "hasComments": false,
+              "isRoot": false,
+              "isTagged": false,
+              "numberOfContainedEntities": 1,
+              "numberOfDeadChildren": 1,
+              "numberOfTags": 0,
+              "sourceCode": "df.head",
+              "startLine": 4,
+              "startPos": 57,
+              "value": {
+                "ref": 1
+              }
+            },
+            {
+              "FM3": "FAST-Python-Model.ImportStatement",
+              "id": 3,
+              "endLine": 1,
+              "endPos": 19,
+              "fanIn": 0,
+              "fanOut": 0,
+              "hasComments": false,
+              "isDead": true,
+              "isRoot": false,
+              "isTagged": false,
+              "numberOfContainedEntities": 1,
+              "numberOfDeadChildren": 1,
+              "numberOfExternalClients": 0,
+              "numberOfExternalProviders": 0,
+              "numberOfInternalClients": 0,
+              "numberOfInternalProviders": 0,
+              "numberOfTags": 0,
+              "sourceCode": "import pandas as pd",
+              "startLine": 1,
+              "startPos": 1,
+              "importedEntities": [
+                {
+                  "ref": 4
+                }
+              ]
+            },
+            {
+              "FM3": "FAST-Python-Model.AttributeAccess",
+              "id": 5,
+              "name": "read_csv",
+              "endLine": 3,
+              "endPos": 37,
+              "hasComments": false,
+              "isRoot": false,
+              "isTagged": false,
+              "numberOfContainedEntities": 1,
+              "numberOfDeadChildren": 1,
+              "numberOfTags": 0,
+              "sourceCode": "pd.read_csv",
+              "startLine": 3,
+              "startPos": 27
+            },
+            {
+              "FM3": "FAST-Python-Model.Module",
+              "id": 6,
+              "endLine": 4,
+              "endPos": 66,
+              "hasComments": false,
+              "isRoot": true,
+              "isTagged": false,
+              "lineCount": 4,
+              "numberOfContainedEntities": 3,
+              "numberOfTags": 0,
+              "source": "import pandas as pd\n\ndf = pd.read_csv('data.csv')\nprint(df.head())",
+              "sourceCode": "import pandas as pd\n\ndf = pd.read_csv('data.csv')\nprint(df.head())",
+              "startLine": 1,
+              "startPos": 1,
+              "statements": [
+                {
+                  "ref": 3
+                },
+                {
+                  "ref": 7
+                },
+                {
+                  "ref": 8
+                }
+              ]
+            },
+            {
+              "FM3": "FAST-Python-Model.Call",
+              "id": 9,
+              "endLine": 4,
+              "endPos": 65,
+              "hasComments": false,
+              "isRoot": false,
+              "isTagged": false,
+              "numberOfContainedEntities": 1,
+              "numberOfTags": 0,
+              "sourceCode": "df.head()",
+              "startLine": 4,
+              "startPos": 57,
+              "callee": {
+                "ref": 2
+              }
+            },
+            {
+              "FM3": "FAST-Python-Model.Identifier",
+              "id": 10,
+              "name": "pd",
+              "endLine": 3,
+              "endPos": 28,
+              "fanIn": 0,
+              "fanOut": 0,
+              "hasComments": false,
+              "isDead": true,
+              "isRoot": false,
+              "isTagged": false,
+              "numberOfContainedEntities": 0,
+              "numberOfDeadChildren": 0,
+              "numberOfExternalClients": 0,
+              "numberOfExternalProviders": 0,
+              "numberOfInternalClients": 0,
+              "numberOfInternalProviders": 0,
+              "numberOfTags": 0,
+              "parentAttributeObject": {
+                "ref": 5
+              },
+              "sourceCode": "pd",
+              "startLine": 3,
+              "startPos": 27
+            },
+            {
+              "FM3": "FAST-Python-Model.Variable",
+              "id": 11,
+              "name": "df",
+              "endLine": 3,
+              "endPos": 23,
+              "fanIn": 0,
+              "fanOut": 0,
+              "hasComments": false,
+              "isDead": true,
+              "isRoot": false,
+              "isTagged": false,
+              "numberOfContainedEntities": 0,
+              "numberOfDeadChildren": 0,
+              "numberOfExternalClients": 0,
+              "numberOfExternalProviders": 0,
+              "numberOfInternalClients": 0,
+              "numberOfInternalProviders": 0,
+              "numberOfTags": 0,
+              "sourceCode": "df",
+              "startLine": 3,
+              "startPos": 22
+            },
+            {
+              "FM3": "FAST-Python-Model.ImportedEntity",
+              "id": 4,
+              "alias": "pd",
+              "endLine": 1,
+              "endPos": 19,
+              "fanIn": 0,
+              "fanOut": 0,
+              "hasComments": false,
+              "isDead": true,
+              "isRoot": false,
+              "isTagged": false,
+              "numberOfContainedEntities": 0,
+              "numberOfDeadChildren": 0,
+              "numberOfExternalClients": 0,
+              "numberOfExternalProviders": 0,
+              "numberOfInternalClients": 0,
+              "numberOfInternalProviders": 0,
+              "numberOfTags": 0,
+              "segments": [
+                "pandas"
+              ],
+              "sourceCode": "pandas as pd",
+              "startLine": 1,
+              "startPos": 8
+            },
+            {
+              "FM3": "FAST-Python-Model.Call",
+              "id": 12,
+              "endLine": 3,
+              "endPos": 49,
+              "hasComments": false,
+              "isRoot": false,
+              "isTagged": false,
+              "numberOfContainedEntities": 2,
+              "numberOfTags": 0,
+              "sourceCode": "pd.read_csv('data.csv')",
+              "startLine": 3,
+              "startPos": 27,
+              "arguments": [
+                {
+                  "ref": 13
+                }
+              ],
+              "callee": {
+                "ref": 5
+              }
+            },
+            {
+              "FM3": "FAST-Python-Model.Assignment",
+              "id": 7,
+              "endLine": 3,
+              "endPos": 49,
+              "hasComments": false,
+              "isRoot": false,
+              "isTagged": false,
+              "numberOfContainedEntities": 2,
+              "numberOfTags": 0,
+              "sourceCode": "df = pd.read_csv('data.csv')",
+              "startLine": 3,
+              "startPos": 22,
+              "left": {
+                "ref": 11
+              },
+              "right": {
+                "ref": 12
+              }
+            },
+            {
+              "FM3": "FAST-Python-Model.Call",
+              "id": 8,
+              "endLine": 4,
+              "endPos": 66,
+              "hasComments": false,
+              "isRoot": false,
+              "isTagged": false,
+              "numberOfContainedEntities": 2,
+              "numberOfTags": 0,
+              "sourceCode": "print(df.head())",
+              "startLine": 4,
+              "startPos": 51,
+              "arguments": [
+                {
+                  "ref": 9
+                }
+              ]
+            },
+            {
+              "FM3": "FAST-Python-Model.Identifier",
+              "id": 14,
+              "name": "print",
+              "caller": {
+                "ref": 8
+              },
+              "endLine": 4,
+              "endPos": 55,
+              "fanIn": 0,
+              "fanOut": 0,
+              "hasComments": false,
+              "isDead": true,
+              "isRoot": false,
+              "isTagged": false,
+              "numberOfContainedEntities": 0,
+              "numberOfDeadChildren": 0,
+              "numberOfExternalClients": 0,
+              "numberOfExternalProviders": 0,
+              "numberOfInternalClients": 0,
+              "numberOfInternalProviders": 0,
+              "numberOfTags": 0,
+              "sourceCode": "print",
+              "startLine": 4,
+              "startPos": 51
+            },
+            {
+              "FM3": "FAST-Python-Model.String",
+              "id": 13,
+              "endLine": 3,
+              "endPos": 48,
+              "fanIn": 0,
+              "fanOut": 0,
+              "hasComments": false,
+              "isDead": true,
+              "isRoot": false,
+              "isTagged": false,
+              "numberOfContainedEntities": 0,
+              "numberOfDeadChildren": 0,
+              "numberOfExternalClients": 0,
+              "numberOfExternalProviders": 0,
+              "numberOfInternalClients": 0,
+              "numberOfInternalProviders": 0,
+              "numberOfTags": 0,
+              "sourceCode": "'data.csv'",
+              "startLine": 3,
+              "startPos": 39
+            }
+          ]

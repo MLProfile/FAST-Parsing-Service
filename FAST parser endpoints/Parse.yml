@@ -1,0 +1,105 @@
+info:
+  name: Parse
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:1701/parse
+  body:
+    type: json
+    data: "{\"source\": \"import pandas as pd\\n\\ndf = pd.read_csv('data.csv')\\nprint(df.head())\"}"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
+
+examples:
+  - name: example
+    request:
+      url: http://localhost:1701/parse
+      method: GET
+      body:
+        type: json
+        data: "{\"source\": \"import pandas as pd\\n\\ndf = pd.read_csv('data.csv')\\nprint(df.head())\"}"
+    response:
+      status: 200
+      statusText: OK
+      headers:
+        - name: server
+          value: Zinc HTTP Components 1.0 (Pharo/13.1)
+        - name: date
+          value: Mon, 16 Nov 2026 17:33:46 GMT
+        - name: content-type
+          value: application/json
+        - name: content-length
+          value: "731"
+      body:
+        type: json
+        data: |-
+          [
+            {
+              "source": "import pandas as pd",
+              "line": {
+                "start": 1,
+                "end": 1
+              },
+              "step_name": "Library Loading",
+              "library": "",
+              "id": "a2f3e959-ef22-49ac-8724-36b1d6a9b3b7",
+              "function": "",
+              "cursor": {
+                "start": 1,
+                "end": 19
+              }
+            },
+            {
+              "source": "pd.read_csv('data.csv')",
+              "line": {
+                "start": 3,
+                "end": 3
+              },
+              "step_name": "",
+              "library": "",
+              "id": "62907a4f-000b-4932-8ae8-4e383f0e319e",
+              "function": "read_csv",
+              "cursor": {
+                "start": 27,
+                "end": 49
+              }
+            },
+            {
+              "source": "print(df.head())",
+              "line": {
+                "start": 4,
+                "end": 4
+              },
+              "step_name": "",
+              "library": "",
+              "id": "9a6bed57-c15c-48be-b25f-44eaf6ce9af7",
+              "function": "print",
+              "cursor": {
+                "start": 51,
+                "end": 66
+              }
+            },
+            {
+              "source": "df.head()",
+              "line": {
+                "start": 4,
+                "end": 4
+              },
+              "step_name": "",
+              "library": "",
+              "id": "16453873-b604-4429-acb8-1b148dcd63c2",
+              "function": "head",
+              "cursor": {
+                "start": 57,
+                "end": 65
+              }
+            }
+          ]
