@@ -26,6 +26,9 @@ BaselineOfFastParsingAPI >> defineDependencies: spec [
 		loads: 'FAST-Python-ExtraTools';
 		repository: 'github://moosetechnology/FAST-Python:main/src' ].
 	spec 
+		baseline: 'OSSubprocess' with: [
+    	spec repository: 'github://pharo-contributions/OSSubprocess:master/repository' ].	
+	spec 
 		baseline: 'FamixQueries'
 		with: [
 		spec repository: 'github://moosetechnology/FamixQueries' ].

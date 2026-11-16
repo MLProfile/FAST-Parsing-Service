@@ -27,8 +27,8 @@ To use it while developing, change command path to a local venv with jupytext in
 /Users/mignard/Documents/work/FAST-Parsing-Service/.venv/bin/python
 "
 OSSUnixSubprocess new
-    command: '/Users/mignard/Documents/work/FAST-Parsing-Service/.venv/bin/python';
-    arguments: { '-m'. 'jupytext'. '--to'. 'py'. '--output'. '-'. tempFilePath pathString };
+    command: '/usr/local/bin/jupytext';
+    arguments: { '--to'. 'py'. '--output'. '-'. tempFilePath pathString };
         redirectStdout;
         redirectStderr;
         runAndWaitOnExitDo: [ :process :outString :errString |
@@ -43,8 +43,6 @@ OSSUnixSubprocess new
 
 { #category : 'writing' }
 Notebook2Script >> deleteFile [ 
-"This method delete the temp file"
-
 	tempFilePath ensureDelete. 
 ]
 
@@ -62,8 +60,6 @@ Notebook2Script >> source: aSource [
 
 { #category : 'writing' }
 Notebook2Script >> writeFile [
-"This methode need to write the content of source in a temp file"
-
 	tempFilePath := FileLocator temp / (UUID new asString, '.ipynb').
 
    tempFilePath writeStreamDo: [ :stream | 
