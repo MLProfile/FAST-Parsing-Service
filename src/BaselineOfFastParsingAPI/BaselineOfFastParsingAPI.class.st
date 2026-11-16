@@ -21,8 +21,10 @@ BaselineOfFastParsingAPI >> defineDependencies: spec [
 
 	spec
 		baseline: 'FASTPython'
-		with: [
-		spec repository: 'github://moosetechnology/FAST-Python:main/src' ].
+		with: [	
+		spec
+		loads: 'FAST-Python-ExtraTools';
+		repository: 'github://moosetechnology/FAST-Python:main/src' ].
 	spec 
 		baseline: 'FamixQueries'
 		with: [
