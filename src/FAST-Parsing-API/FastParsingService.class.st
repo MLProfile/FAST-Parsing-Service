@@ -5,7 +5,8 @@ Class {
 		'source',
 		'model',
 		'importsSousGraphs',
-		'jsonModel'
+		'jsonModel',
+		'sourceFileType'
 	],
 	#category : 'FAST-Parsing-API',
 	#package : 'FAST-Parsing-API'
@@ -27,6 +28,23 @@ FastParsingService class >> parseInvocationFromSource: nbSourceCode [
 		  source: nbSourceCode;
 		  parseInvocation;
 		  yourself
+]
+
+{ #category : 'parsing' }
+FastParsingService class >> parseInvocationFromSource: nbSourceCode Type: sourceFileType [
+
+^ self new
+		  source: nbSourceCode;
+		  sourceFileType: sourceFileType; 
+		  convertNotebook2Script;	
+		  parseInvocation;
+		  yourself
+]
+
+{ #category : 'as yet unclassified' }
+FastParsingService >> convertNotebook2Script [
+
+	sourceFileType = 'notebook' ifTrue: [ source := (Notebook2Script convertSource: source) source. ].
 ]
 
 { #category : 'as yet unclassified' }
@@ -98,6 +116,18 @@ FastParsingService >> source [
 FastParsingService >> source: aSourceCode [
 
     source:= aSourceCode 
+]
+
+{ #category : 'accessing' }
+FastParsingService >> sourceFileType [
+
+	^sourceFileType 
+]
+
+{ #category : 'accessing' }
+FastParsingService >> sourceFileType: aSourceFileType [
+
+	sourceFileType := aSourceFileType 
 ]
 
 { #category : 'as yet unclassified' }

@@ -19,7 +19,8 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'dispatcher',
-		'server'
+		'server',
+		'sourceFileType'
 	],
 	#category : 'FAST-Parsing-API',
 	#package : 'FAST-Parsing-API'
@@ -79,6 +80,8 @@ Server >> handleParseRequest: aRequest [
 	postData := aRequest entity contents.
 	dict := (NeoJSONReader on: postData readStream) next.
 
+	sourceFileType := dict at:'source_type' ifAbsent: [ sourceFileType := 'script' ].
+	
 	"Should handle ifAbsent"
 	nbSourceCode := dict
 		        at: 'source'
@@ -87,7 +90,7 @@ Server >> handleParseRequest: aRequest [
 
 
 	^ FastParsingService
-		  parseInvocationFromSource: nbSourceCode
+		  parseInvocationFromSource: nbSourceCode Type: sourceFileType 
 ]
 
 { #category : 'as yet unclassified' }
