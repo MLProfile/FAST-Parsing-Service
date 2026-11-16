@@ -5,30 +5,38 @@ RUN apt-get update && apt-get install -y \
     libsqlite3-0 libgl1 libfreetype6 libx11-6 \
     && rm -rf /var/lib/apt/lists/*
 
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /usr/local/bin/
+
+ENV UV_PYTHON_INSTALL_DIR=/opt/uv/python \
+    UV_TOOL_DIR=/opt/uv/tools \
+    UV_TOOL_BIN_DIR=/usr/local/bin
+RUN uv tool install jupytext && jupytext --version
+
 WORKDIR /opt/pharo
 
-RUN curl https://get.pharo.org/130+vm | bash 
+RUN curl https://get.pharo.org/130+vm | bash
 
 RUN mkdir -p /root/Documents/tree-sitter-libraries
 
 # We build Tree-Sitter and the grammar in advance, otherwise pharo will try to do it but will use the vm git and make which conflicts with the ones in the docker
-# A.  Tree-Sitter 
+# A.  Tree-Sitter
 RUN git clone https://github.com/tree-sitter/tree-sitter.git /root/Documents/tree-sitter-libraries/tree-sitter \
     && cd /root/Documents/tree-sitter-libraries/tree-sitter \
     && make \
     && make install && ldconfig
 
-# B. Python grammar 
+# B. Python grammar
 RUN git clone https://github.com/tree-sitter/tree-sitter-python.git /root/Documents/tree-sitter-libraries/tree-sitter-python \
     && cd /root/Documents/tree-sitter-libraries/tree-sitter-python \
     && make \
-    && cp libtree-sitter-python.so /opt/pharo/pharo-vm/lib/ 
+    && cp libtree-sitter-python.so /opt/pharo/pharo-vm/lib/
     # not clear why TSPython loockup fallback in the previous location does not work... so we put it in the vms libs
 
-# C. TypeScript grammar  
+# C. TypeScript grammar
 RUN git clone https://github.com/tree-sitter/tree-sitter-typescript.git /root/Documents/tree-sitter-libraries/tree-sitter-typescript \
     && cd /root/Documents/tree-sitter-libraries/tree-sitter-typescript \
-    && make 
+    && make
 #   && cp libtree-sitter-typescript.so /opt/pharo/pharo-vm/lib/ # There is no so after the build
 
 

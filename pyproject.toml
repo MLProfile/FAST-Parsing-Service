@@ -1,0 +1,19 @@
+[project]
+name = "fast-parsing-service"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "JMLF", email = "marius.mignard@inria.fr" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "jupytext>=1.19.6",
+]
+
+[project.scripts]
+fast-parsing-service = "fast_parsing_service:main"
+
+[build-system]
+requires = ["uv_build>=0.12.18,<0.13.0"]
+build-backend = "uv_build"
