@@ -22,6 +22,17 @@ FastParsingService class >> parseFromSource: nbSourceCode [
 ]
 
 { #category : 'parsing' }
+FastParsingService class >> parseFromSource: nbSourceCode Type: aSourceFileType [
+
+^ self new
+		  source: nbSourceCode;
+		  sourceFileType: aSourceFileType; 
+		  convertNotebook2Script;
+		  parse;
+		  yourself
+]
+
+{ #category : 'parsing' }
 FastParsingService class >> parseInvocationFromSource: nbSourceCode [
 
 ^ self new

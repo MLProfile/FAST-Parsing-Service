@@ -62,6 +62,8 @@ Server >> handleParseFullRequest: aRequest [
 	postData := aRequest entity contents.
 	dict := (NeoJSONReader on: postData readStream) next.
 
+	sourceFileType := dict at:'source_type' ifAbsent: [ sourceFileType := 'script' ].
+
 	"Should handle ifAbsent"
 	nbSourceCode := dict
 		        at: 'source'
@@ -70,7 +72,7 @@ Server >> handleParseFullRequest: aRequest [
 
 
 	^ FastParsingService
-		  parseFromSource: nbSourceCode
+		  parseFromSource: nbSourceCode Type: sourceFileType.
 ]
 
 { #category : 'public' }
