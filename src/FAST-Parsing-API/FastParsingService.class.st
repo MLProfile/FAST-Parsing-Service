@@ -168,7 +168,7 @@ FastParsingService >> sousGraphsFromimports: imports AndInvocation: calls [
             yourself ].
 
 	jsonImport addAll: jsonCalls . 
-
+	jsonImport  sort: [ :first :second | (first at: 'cursor' at: 'start') < (second at: 'cursor' at: 'start') ].
    importsSousGraphs:= NeoJSONWriter toString: jsonImport "Bouger ça dans la classe serveur"
 ]
 
